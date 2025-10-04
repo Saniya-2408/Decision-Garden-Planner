@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Decision Garden | Projects</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="projects">
+  <div class="dashboard-wrapper">
+    
+    <header class="dash-header">
+      <div class="logo">🌱 Decision Garden</div>
+      <nav class="dash-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="projects.html" class="active">Projects</a></li>
+          <li><a href="neglected.html">Neglected</a></li>
+          <li><a href="growth.html">Growth</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+      
+    </header>
+
+    
+    <main class="dash-main">
+      
+      <section class="hero-panel small-hero fade-in">
+        <div class="hero-content">
+          <h1>Projects 🌲</h1>
+          <p>Where long-term goals turn into trees.</p>
+        </div>
+      </section>
+
+      
+      <section class="task-list grid slide-up">
+        <div class="card task-card">📊 Design quarterly report</div>
+        <div class="card task-card">👥 Team roadmap planning</div>
+        <div class="card task-card">🛠 Build new feature</div>
+        <div class="card task-card">🔍 Research new tech</div>
+        <div class="card task-card">📑 Write documentation</div>
+      </section>
+    </main>
+
+    
+    <footer class="dash-footer fade-in">
+      <p>“Big trees grow from tiny seeds of effort.”</p>
+      <p>🌱 Decision Garden © 2025</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+    
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      themeToggle.textContent = document.body.classList.contains('dark') ? '☀ Light' : '🌙 Dark';
+    });
+  </script>
+</body>
+</html>
