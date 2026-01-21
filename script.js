@@ -5,82 +5,97 @@ const completedCountEl = document.getElementById('completedCount');
 const pendingCountEl = document.getElementById('pendingCount');
 const focusBar = document.getElementById('focusBar');
 
-let tasks = [];
+const TODAY = new Date().toDateString();
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-if (localStorage.getItem('tasks')) {
-  tasks = JSON.parse(localStorage.getItem('tasks'));
-  tasks.forEach(task => renderTask(task));
-  updateStats();
+function todayTaskCount() {
+  return tasks.filter(t => t.createdAt === TODAY).length;
 }
 
 addTaskBtn?.addEventListener('click', () => {
   const text = taskInput.value.trim();
-  if (text === '') return;
-  const task = { text, done: false };
+  if (!text) return;
+
+  if (todayTaskCount() >= 5) {
+    alert("Max 5 tasks per day");
+    return;
+  }
+
+  const task = {
+    id: Date.now(),
+    text,
+    stage: 'seed',
+    createdAt: TODAY,
+    lastUpdated: TODAY
+  };
+
   tasks.push(task);
-  renderTask(task);
   saveTasks();
+  renderAll();
   taskInput.value = '';
-  updateStats();
 });
 
-function renderTask(task) {
-  const div = document.createElement('div');
-  div.className = 'card task-card';
-  if (task.done) div.classList.add('done');
-  div.textContent = task.text;
+function nextStage(stage) {
+  if (stage === 'seed') return 'sprout';
+  if (stage === 'sprout') return 'bloom';
+  return 'bloom';
+}
 
-  div.addEventListener('click', () => {
-    task.done = !task.done;
-    div.classList.toggle('done');
-    updateStats();
-    saveTasks();
+function updateNeglectedTasks() {
+  const now = new Date();
+  tasks.forEach(task => {
+    const diff = Math.floor((now - new Date(task.lastUpdated)) / (1000 * 60 * 60 * 24));
+    if (diff >= 3 && task.stage !== 'bloom') task.stage = 'wilt';
+  });
+}
+
+function renderAll() {
+  updateNeglectedTasks();
+  if (taskList) taskList.innerHTML = '';
+
+  tasks.forEach(task => {
+    if (!taskList) return;
+
+    const div = document.createElement('div');
+    div.className = `card task-card ${task.stage}`;
+    div.textContent = `${getEmoji(task.stage)} ${task.text}`;
+
+    div.onclick = () => {
+      if (task.stage !== 'bloom') {
+        task.stage = nextStage(task.stage);
+        task.lastUpdated = TODAY;
+        saveTasks();
+        renderAll();
+      }
+    };
+
+    taskList.appendChild(div);
   });
 
-  taskList?.appendChild(div);
+  updateStats();
+}
+
+function updateStats() {
+  const bloomed = tasks.filter(t => t.stage === 'bloom').length;
+  const active = tasks.filter(t => t.stage !== 'wilt').length;
+
+  completedCountEl && (completedCountEl.textContent = bloomed);
+  pendingCountEl && (pendingCountEl.textContent = active - bloomed);
+
+  if (focusBar) {
+    const pct = tasks.length ? Math.round((bloomed / tasks.length) * 100) : 0;
+    focusBar.style.width = pct + '%';
+  }
+}
+
+function getEmoji(stage) {
+  return stage === 'seed' ? '🌱' :
+         stage === 'sprout' ? '🌿' :
+         stage === 'bloom' ? '🌸' : '🍂';
 }
 
 function saveTasks() {
   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-function updateStats() {
-  const completed = tasks.filter(t => t.done).length;
-  const pending = tasks.length - completed;
-  completedCountEl && (completedCountEl.textContent = completed);
-  pendingCountEl && (pendingCountEl.textContent = pending);
-
-  if (focusBar) {
-    const pct = tasks.length ? Math.round((completed / tasks.length) * 100) : 0;
-    focusBar.style.width = pct + '%';
-  }
-}
-
-const themeToggle = document.getElementById('themeToggle');
-
-if(localStorage.getItem('theme') === 'dark'){
-  document.body.classList.add('dark');
-  if(themeToggle) themeToggle.textContent = '☀ Light';
-}
-
-if(themeToggle){
-  themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    const isDark = document.body.classList.contains('dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    themeToggle.textContent = isDark ? '☀ Light' : '🌙 Dark';
-  });
-}
-
-if (localStorage.getItem('darkMode') === 'true') {
-  document.body.classList.add('dark');
-}
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    document.querySelector(this.getAttribute('href'))?.scrollIntoView({
-      behavior: 'smooth'
-    });
-  });
-});
+renderAll();
