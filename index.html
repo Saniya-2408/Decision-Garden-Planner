@@ -1,79 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Decision Garden | Home</title>
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Decision Garden | Home</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body class="home">
-<div class="dashboard-wrapper">
+  <div class="dashboard-wrapper">
 
-<header class="dash-header">
-  <div class="logo">🌸 Decision Garden</div>
-  <nav class="dash-nav">
-    <ul>
-      <li><a class="active" href="index.html">Home</a></li>
-      <li><a href="features.html">Features</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="neglected.html">Neglected</a></li>
-      <li><a href="growth.html">Growth</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
-  </nav>
-</header>
+    <header class="dash-header">
+      <div class="logo">🌱 Decision Garden</div>
+      <nav class="dash-nav">
+        <ul>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="neglected.html">Neglected</a></li>
+          <li><a href="growth.html">Growth</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+    </header>
 
-<main class="dash-main">
+    <main class="dash-main">
 
-<section class="hero-panel big-hero">
-  <h1>Grow Better Decisions</h1>
-  <p>Turn tasks into visible progress 🌱</p>
-</section>
+      <section class="hero-panel big-hero enhanced-hero fade-in">
+        <div class="hero-content">
+          <h1>Grow Your Productivity</h1>
+          <p>Visualize tasks as a living garden. Calm. Clear. Intentional.</p>
+          <a href="#add" class="btn">Start Planting</a>
+        </div>
+      </section>
 
-<section class="add-task-panel">
-  <input id="taskInput" placeholder="Plant a new task">
-  <select id="goalType">
-    <option value="daily">🎯 Daily</option>
-    <option value="long">🌳 Long-term</option>
-  </select>
-  <button id="addTask" class="btn">Add</button>
-</section>
+      <section id="add" class="add-task-panel slide-up">
+        <input type="text" id="taskInput" placeholder="Sow a new seed (e.g. Study CSS)">
+        <button id="addTask" class="btn">Sow Seed 🌿</button>
+      </section>
 
-<section class="stats-cards grid">
-  <div class="card stat-card">
-    <h3>Completed</h3>
-    <p id="completedCount">0</p>
+      <section class="task-list grid" id="taskList">
+      </section>
+
+      <section class="journal-card slide-up">
+        <div>
+          <h2>Growth Journal</h2>
+          <p>Reflect for 5 minutes. Awareness fuels consistency.</p>
+          <a href="growth.html" class="btn btn-small">View Growth</a>
+        </div>
+      </section>
+
+      <section class="stats-cards grid slide-up">
+        <div class="card stat-card">
+          <h3>Completed Tasks</h3>
+          <p id="completedCount">0</p>
+        </div>
+        <div class="card stat-card">
+          <h3>Pending Tasks</h3>
+          <p id="pendingCount">0</p>
+        </div>
+        <div class="card stat-card">
+          <h3>Focus Meter</h3>
+          <div class="progress-bar"><div id="focusBar"></div></div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="dash-footer fade-in">
+      <p>“The seeds you water today will bloom tomorrow.”</p>
+      <p>🌱 Decision Garden © 2025</p>
+    </footer>
+
   </div>
-  <div class="card stat-card">
-    <h3>Total Goals</h3>
-    <p id="goalCount">0</p>
-  </div>
-  <div class="card stat-card">
-    <h3>Focus</h3>
-    <div class="progress-bar"><div id="focusBar"></div></div>
-  </div>
-</section>
 
-<section id="taskGrid" class="task-grid"></section>
-
-</main>
-
-<footer class="dash-footer">Decision Garden © 2025</footer>
-
-<div id="modal" class="modal">
-  <div class="modal-box">
-    <h2 id="modalTitle"></h2>
-    <p id="modalGoal"></p>
-    <p id="modalStage"></p>
-    <button id="advanceBtn" class="btn">Grow</button>
-    <button id="deleteBtn" class="btn danger">Delete</button>
-    <button onclick="closeModal()" class="btn ghost">Close</button>
-  </div>
-</div>
-
-<script src="script.js"></script>
-</div>
+  <script src="script.js"></script>
 </body>
 </html>
