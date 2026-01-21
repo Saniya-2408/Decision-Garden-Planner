@@ -1,84 +1,57 @@
-const grid=document.getElementById("taskGrid")
-const taskInput=document.getElementById("taskInput")
-const addTask=document.getElementById("addTask")
-const completedCount=document.getElementById("completedCount")
-const goalCount=document.getElementById("goalCount")
-const focusBar=document.getElementById("focusBar")
-const goalType=document.getElementById("goalType")
+const taskInput = document.getElementById('taskInput');
+const addTaskBtn = document.getElementById('addTask');
+const taskList = document.getElementById('taskList');
+const completedCountEl = document.getElementById('completedCount');
+const pendingCountEl = document.getElementById('pendingCount');
+const focusBar = document.getElementById('focusBar');
 
-const modal=document.getElementById("modal")
-const modalTitle=document.getElementById("modalTitle")
-const modalGoal=document.getElementById("modalGoal")
-const modalStage=document.getElementById("modalStage")
-const advanceBtn=document.getElementById("advanceBtn")
-const deleteBtn=document.getElementById("deleteBtn")
+let tasks = [];
 
-let tasks=JSON.parse(localStorage.getItem("decisionGarden"))||[]
-let active=null
-const page=document.body.className
-
-addTask?.addEventListener("click",()=>{
-if(!taskInput.value.trim())return
-tasks.push({id:Date.now(),text:taskInput.value,goal:goalType.value,stage:"seed",img:img()})
-save();taskInput.value="";render()
-})
-
-function render(){
-if(!grid)return
-grid.innerHTML=""
-tasks.filter(f).forEach(t=>{
-const d=document.createElement("div")
-d.className="card"
-d.style.backgroundImage=`url(${t.img})`
-d.innerHTML=`<h3>${emoji(t.stage)} ${t.text}</h3>`
-d.onclick=()=>open(t.id)
-grid.appendChild(d)
-})
-updateStats()
+if (localStorage.getItem('tasks')) {
+  tasks = JSON.parse(localStorage.getItem('tasks'));
+  tasks.forEach(task => renderTask(task));
+  updateStats();
 }
 
-function f(t){
-if(page==="projects")return t.goal==="long"
-if(page==="neglected")return t.stage==="wilt"
-return true
+addTaskBtn?.addEventListener('click', () => {
+  const text = taskInput.value.trim();
+  if (text === '') return;
+  const task = { text, done: false };
+  tasks.push(task);
+  renderTask(task);
+  saveTasks();
+  taskInput.value = '';
+  updateStats();
+});
+
+function renderTask(task) {
+  const div = document.createElement('div');
+  div.className = 'card task-card';
+  if (task.done) div.classList.add('done');
+  div.textContent = task.text;
+
+  div.addEventListener('click', () => {
+    task.done = !task.done;
+    div.classList.toggle('done');
+    updateStats();
+    saveTasks();
+  });
+
+  taskList?.appendChild(div);
 }
 
-function open(id){
-active=tasks.find(t=>t.id===id)
-modal.style.display="flex"
-modalTitle.textContent=active.text
-modalGoal.textContent=active.goal
-modalStage.textContent=active.stage
+function saveTasks() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-function closeModal(){modal.style.display="none";active=null}
+function updateStats() {
+  const completed = tasks.filter(t => t.done).length;
+  const pending = tasks.length - completed;
+  completedCountEl && (completedCountEl.textContent = completed);
+  pendingCountEl && (pendingCountEl.textContent = pending);
 
-advanceBtn?.addEventListener("click",()=>{
-if(!active)return
-active.stage=active.stage==="seed"?"sprout":"bloom"
-save();closeModal();render()
-})
-
-deleteBtn?.addEventListener("click",()=>{
-tasks=tasks.filter(t=>t.id!==active.id)
-save();closeModal();render()
-})
-
-function updateStats(){
-if(!completedCount)return
-const done=tasks.filter(t=>t.stage==="bloom").length
-completedCount.textContent=done
-goalCount.textContent=tasks.length
-focusBar.style.width=tasks.length?done/tasks.length*100+"%":"0%"
+  if (focusBar) {
+    const pct = tasks.length ? Math.round((completed / tasks.length) * 100) : 0;
+    focusBar.style.width = pct + '%';
+  }
 }
-
-function emoji(s){return s==="seed"?"🌱":s==="sprout"?"🌿":s==="bloom"?"🌸":"🍂"}
-function img(){
-const a=[
-"https://images.unsplash.com/photo-1501004318641-b39e6451bec6",
-"https://images.unsplash.com/photo-1469474968028-56623f02e42e"
-]
-return a[Math.floor(Math.random()*a.length)]
-}
-function save(){localStorage.setItem("decisionGarden",JSON.stringify(tasks))}
-render()
