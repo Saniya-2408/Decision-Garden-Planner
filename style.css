@@ -131,4 +131,16 @@ body.dark .dash-header {
 body.dark .dash-nav a.active { background: var(--c-primary); color: var(--c-text-light); }
 body.dark .dash-nav a:hover:not(.active) { background: var(--c-secondary); color: var(--c-text-light); }
 body.dark .theme-toggle { background: var(--c-primary); color: var(--c-text-light); }
-body.dark .page-hero { color: var(--c-text-light); }
+
+body.dark .page-hero { color: var(--c-text-light);
+                     .task-card.seed { border-left-color: var(--c-sprout); }
+.task-card.sprout { border-left-color: #81C784; }
+.task-card.bloom {
+  border-left-color: var(--c-bloom);
+  background: #F1FFF3;
+}
+.task-card.wilt {
+  border-left-color: var(--c-wilt);
+  background: #FEF3F3;
+  opacity: 0.75;
+}}
