@@ -2,80 +2,64 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Decision Garden | Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decision Garden</title>
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 </head>
 
-<body class="home">
-<div class="dashboard-wrapper">
+<body>
+<div class="app">
 
-<header class="dash-header">
-  <div class="logo">❄️ Decision Garden</div>
-  <nav class="dash-nav">
-    <ul>
-      <li><a class="active" href="index.html">Home</a></li>
-      <li><a href="features.html">Features</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="neglected.html">Neglected</a></li>
-      <li><a href="growth.html">Growth</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
-  </nav>
+<header class="header">
+  <h1>🌸 Decision Garden</h1>
+  <p>Turn decisions into growth</p>
 </header>
 
-<main class="dash-main">
-
-<section class="hero-panel big-hero fade-in cold-hero">
-  <h1>Grow Calmly ❄️</h1>
-  <p>Cold clarity. Steady growth. No burnout.</p>
-</section>
-
-<section class="add-task-panel">
-  <input id="taskInput" placeholder="Plant a task">
+<section class="add-section">
+  <input id="taskInput" placeholder="Plant a new task...">
   <select id="goalType">
     <option value="daily">🎯 Daily Goal</option>
-    <option value="long">🌲 Long-Term Goal</option>
+    <option value="long">🌳 Long-Term Goal</option>
   </select>
-  <button id="addTask" class="btn">Add</button>
+  <button id="addTask">Add</button>
 </section>
 
-<section class="stats-cards grid">
-  <div class="card stat-card">
-    <h3>Completed</h3>
+<section class="stats">
+  <div class="stat-card">
+    <h3>🌸 Completed</h3>
     <p id="completedCount">0</p>
   </div>
-  <div class="card stat-card">
-    <h3>Total Goals</h3>
+  <div class="stat-card">
+    <h3>🎯 Goals</h3>
     <p id="goalCount">0</p>
   </div>
-  <div class="card stat-card">
-    <h3>Focus</h3>
-    <div class="progress-bar"><div id="focusBar"></div></div>
+  <div class="stat-card">
+    <h3>⚡ Focus</h3>
+    <div class="progress">
+      <div id="focusBar"></div>
+    </div>
   </div>
 </section>
 
-<section id="taskList" class="task-list grid"></section>
-
-</main>
-
-<footer class="dash-footer">
-  <p>❄️ Decision Garden © 2025</p>
-</footer>
+<section id="taskGrid" class="grid"></section>
 
 <div id="modal" class="modal">
   <div class="modal-box">
-    <h3 id="modalTitle"></h3>
+    <h2 id="modalTitle"></h2>
     <p id="modalGoal"></p>
     <p id="modalStage"></p>
-    <button id="advanceBtn" class="btn">Grow</button>
-    <button id="deleteBtn" class="btn danger">Delete</button>
-    <button onclick="closeModal()" class="btn ghost">Close</button>
+    <button id="advanceBtn">Grow 🌱</button>
+    <button id="deleteBtn" class="danger">Delete ❌</button>
+    <button onclick="closeModal()" class="ghost">Close</button>
   </div>
 </div>
 
-<script src="script.js"></script>
+<footer>
+  <p>🌱 Decision Garden © 2025</p>
+</footer>
+
 </div>
+<script src="script.js"></script>
 </body>
 </html>
