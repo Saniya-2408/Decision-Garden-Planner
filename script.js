@@ -1,101 +1,105 @@
-const taskInput = document.getElementById('taskInput');
-const addTaskBtn = document.getElementById('addTask');
-const taskList = document.getElementById('taskList');
-const completedCountEl = document.getElementById('completedCount');
-const pendingCountEl = document.getElementById('pendingCount');
-const focusBar = document.getElementById('focusBar');
+const taskInput=document.getElementById("taskInput")
+const addTaskBtn=document.getElementById("addTask")
+const taskGrid=document.getElementById("taskGrid")
+const completedCount=document.getElementById("completedCount")
+const goalCount=document.getElementById("goalCount")
+const focusBar=document.getElementById("focusBar")
+const goalType=document.getElementById("goalType")
 
-const TODAY = new Date().toDateString();
-let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+const modal=document.getElementById("modal")
+const modalTitle=document.getElementById("modalTitle")
+const modalGoal=document.getElementById("modalGoal")
+const modalStage=document.getElementById("modalStage")
+const advanceBtn=document.getElementById("advanceBtn")
+const deleteBtn=document.getElementById("deleteBtn")
 
-function todayTaskCount() {
-  return tasks.filter(t => t.createdAt === TODAY).length;
+let tasks=JSON.parse(localStorage.getItem("decisionGarden"))||[]
+let activeTask=null
+
+addTaskBtn.onclick=()=>{
+if(!taskInput.value.trim())return
+tasks.push({
+id:Date.now(),
+text:taskInput.value,
+goal:goalType.value,
+stage:"seed",
+image:randomImage()
+})
+save()
+taskInput.value=""
+render()
 }
 
-addTaskBtn?.addEventListener('click', () => {
-  const text = taskInput.value.trim();
-  if (!text) return;
-
-  if (todayTaskCount() >= 5) {
-    alert("Max 5 tasks per day");
-    return;
-  }
-
-  const task = {
-    id: Date.now(),
-    text,
-    stage: 'seed',
-    createdAt: TODAY,
-    lastUpdated: TODAY
-  };
-
-  tasks.push(task);
-  saveTasks();
-  renderAll();
-  taskInput.value = '';
-});
-
-function nextStage(stage) {
-  if (stage === 'seed') return 'sprout';
-  if (stage === 'sprout') return 'bloom';
-  return 'bloom';
+function render(){
+taskGrid.innerHTML=""
+tasks.forEach(t=>{
+const card=document.createElement("div")
+card.className=`card ${t.stage}`
+card.style.backgroundImage=`url(${t.image})`
+card.innerHTML=`<h3>${emoji(t.stage)} ${t.text}</h3><p>${t.goal==="daily"?"🎯 Daily Goal":"🌳 Long-Term Goal"}</p>`
+card.onclick=()=>openModal(t.id)
+taskGrid.appendChild(card)
+})
+updateStats()
 }
 
-function updateNeglectedTasks() {
-  const now = new Date();
-  tasks.forEach(task => {
-    const diff = Math.floor((now - new Date(task.lastUpdated)) / (1000 * 60 * 60 * 24));
-    if (diff >= 3 && task.stage !== 'bloom') task.stage = 'wilt';
-  });
+function openModal(id){
+activeTask=tasks.find(t=>t.id===id)
+modal.style.display="flex"
+modalTitle.textContent=activeTask.text
+modalGoal.textContent=activeTask.goal
+modalStage.textContent="Stage: "+activeTask.stage
 }
 
-function renderAll() {
-  updateNeglectedTasks();
-  if (taskList) taskList.innerHTML = '';
-
-  tasks.forEach(task => {
-    if (!taskList) return;
-
-    const div = document.createElement('div');
-    div.className = `card task-card ${task.stage}`;
-    div.textContent = `${getEmoji(task.stage)} ${task.text}`;
-
-    div.onclick = () => {
-      if (task.stage !== 'bloom') {
-        task.stage = nextStage(task.stage);
-        task.lastUpdated = TODAY;
-        saveTasks();
-        renderAll();
-      }
-    };
-
-    taskList.appendChild(div);
-  });
-
-  updateStats();
+function closeModal(){
+modal.style.display="none"
+activeTask=null
 }
 
-function updateStats() {
-  const bloomed = tasks.filter(t => t.stage === 'bloom').length;
-  const active = tasks.filter(t => t.stage !== 'wilt').length;
-
-  completedCountEl && (completedCountEl.textContent = bloomed);
-  pendingCountEl && (pendingCountEl.textContent = active - bloomed);
-
-  if (focusBar) {
-    const pct = tasks.length ? Math.round((bloomed / tasks.length) * 100) : 0;
-    focusBar.style.width = pct + '%';
-  }
+advanceBtn.onclick=()=>{
+if(!activeTask)return
+activeTask.stage=nextStage(activeTask.stage)
+save()
+closeModal()
+render()
 }
 
-function getEmoji(stage) {
-  return stage === 'seed' ? '🌱' :
-         stage === 'sprout' ? '🌿' :
-         stage === 'bloom' ? '🌸' : '🍂';
+deleteBtn.onclick=()=>{
+tasks=tasks.filter(t=>t.id!==activeTask.id)
+save()
+closeModal()
+render()
 }
 
-function saveTasks() {
-  localStorage.setItem('tasks', JSON.stringify(tasks));
+function nextStage(s){
+if(s==="seed")return"sprout"
+if(s==="sprout")return"bloom"
+return"bloom"
 }
 
-renderAll();
+function updateStats(){
+const completed=tasks.filter(t=>t.stage==="bloom").length
+completedCount.textContent=completed
+goalCount.textContent=tasks.length
+focusBar.style.width=tasks.length?completed/tasks.length*100+"%":"0%"
+}
+
+function emoji(s){
+return s==="seed"?"🌱":s==="sprout"?"🌿":s==="bloom"?"🌸":"🍂"
+}
+
+function randomImage(){
+const imgs=[
+"https://images.unsplash.com/photo-1469474968028-56623f02e42e",
+"https://images.unsplash.com/photo-1501004318641-b39e6451bec6",
+"https://images.unsplash.com/photo-1492496913980-501348b61469",
+"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
+]
+return imgs[Math.floor(Math.random()*imgs.length)]
+}
+
+function save(){
+localStorage.setItem("decisionGarden",JSON.stringify(tasks))
+}
+
+render()
