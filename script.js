@@ -1,6 +1,6 @@
+const grid=document.getElementById("taskGrid")
 const taskInput=document.getElementById("taskInput")
-const addTaskBtn=document.getElementById("addTask")
-const taskGrid=document.getElementById("taskGrid")
+const addTask=document.getElementById("addTask")
 const completedCount=document.getElementById("completedCount")
 const goalCount=document.getElementById("goalCount")
 const focusBar=document.getElementById("focusBar")
@@ -14,92 +14,71 @@ const advanceBtn=document.getElementById("advanceBtn")
 const deleteBtn=document.getElementById("deleteBtn")
 
 let tasks=JSON.parse(localStorage.getItem("decisionGarden"))||[]
-let activeTask=null
+let active=null
+const page=document.body.className
 
-addTaskBtn.onclick=()=>{
+addTask?.addEventListener("click",()=>{
 if(!taskInput.value.trim())return
-tasks.push({
-id:Date.now(),
-text:taskInput.value,
-goal:goalType.value,
-stage:"seed",
-image:randomImage()
+tasks.push({id:Date.now(),text:taskInput.value,goal:goalType.value,stage:"seed",img:img()})
+save();taskInput.value="";render()
 })
-save()
-taskInput.value=""
-render()
-}
 
 function render(){
-taskGrid.innerHTML=""
-tasks.forEach(t=>{
-const card=document.createElement("div")
-card.className=`card ${t.stage}`
-card.style.backgroundImage=`url(${t.image})`
-card.innerHTML=`<h3>${emoji(t.stage)} ${t.text}</h3><p>${t.goal==="daily"?"🎯 Daily Goal":"🌳 Long-Term Goal"}</p>`
-card.onclick=()=>openModal(t.id)
-taskGrid.appendChild(card)
+if(!grid)return
+grid.innerHTML=""
+tasks.filter(f).forEach(t=>{
+const d=document.createElement("div")
+d.className="card"
+d.style.backgroundImage=`url(${t.img})`
+d.innerHTML=`<h3>${emoji(t.stage)} ${t.text}</h3>`
+d.onclick=()=>open(t.id)
+grid.appendChild(d)
 })
 updateStats()
 }
 
-function openModal(id){
-activeTask=tasks.find(t=>t.id===id)
+function f(t){
+if(page==="projects")return t.goal==="long"
+if(page==="neglected")return t.stage==="wilt"
+return true
+}
+
+function open(id){
+active=tasks.find(t=>t.id===id)
 modal.style.display="flex"
-modalTitle.textContent=activeTask.text
-modalGoal.textContent=activeTask.goal
-modalStage.textContent="Stage: "+activeTask.stage
+modalTitle.textContent=active.text
+modalGoal.textContent=active.goal
+modalStage.textContent=active.stage
 }
 
-function closeModal(){
-modal.style.display="none"
-activeTask=null
-}
+function closeModal(){modal.style.display="none";active=null}
 
-advanceBtn.onclick=()=>{
-if(!activeTask)return
-activeTask.stage=nextStage(activeTask.stage)
-save()
-closeModal()
-render()
-}
+advanceBtn?.addEventListener("click",()=>{
+if(!active)return
+active.stage=active.stage==="seed"?"sprout":"bloom"
+save();closeModal();render()
+})
 
-deleteBtn.onclick=()=>{
-tasks=tasks.filter(t=>t.id!==activeTask.id)
-save()
-closeModal()
-render()
-}
-
-function nextStage(s){
-if(s==="seed")return"sprout"
-if(s==="sprout")return"bloom"
-return"bloom"
-}
+deleteBtn?.addEventListener("click",()=>{
+tasks=tasks.filter(t=>t.id!==active.id)
+save();closeModal();render()
+})
 
 function updateStats(){
-const completed=tasks.filter(t=>t.stage==="bloom").length
-completedCount.textContent=completed
+if(!completedCount)return
+const done=tasks.filter(t=>t.stage==="bloom").length
+completedCount.textContent=done
 goalCount.textContent=tasks.length
-focusBar.style.width=tasks.length?completed/tasks.length*100+"%":"0%"
+focusBar.style.width=tasks.length?done/tasks.length*100+"%":"0%"
 }
 
-function emoji(s){
-return s==="seed"?"🌱":s==="sprout"?"🌿":s==="bloom"?"🌸":"🍂"
-}
-
-function randomImage(){
-const imgs=[
-"https://images.unsplash.com/photo-1469474968028-56623f02e42e",
+function emoji(s){return s==="seed"?"🌱":s==="sprout"?"🌿":s==="bloom"?"🌸":"🍂"}
+function img(){
+const a=[
 "https://images.unsplash.com/photo-1501004318641-b39e6451bec6",
-"https://images.unsplash.com/photo-1492496913980-501348b61469",
-"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
+"https://images.unsplash.com/photo-1469474968028-56623f02e42e"
 ]
-return imgs[Math.floor(Math.random()*imgs.length)]
+return a[Math.floor(Math.random()*a.length)]
 }
-
-function save(){
-localStorage.setItem("decisionGarden",JSON.stringify(tasks))
-}
-
+function save(){localStorage.setItem("decisionGarden",JSON.stringify(tasks))}
 render()
