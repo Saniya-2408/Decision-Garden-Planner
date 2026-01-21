@@ -1,89 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Decision Garden | Home</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FrostFlow Planner</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
+
 <body class="home">
-  <div class="dashboard-wrapper">
-    
-    <header class="dash-header">
-      <div class="logo">🌱 Decision Garden</div>
-      <nav class="dash-nav">
-        <ul>
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="features.html">Features</a></li>
-          <li><a href="projects.html">Projects</a></li>
-          <li><a href="neglected.html">Neglected</a></li>
-          <li><a href="growth.html">Growth</a></li>
-          <li><a href="about.html">About</a></li>
-        </ul>
-      </nav>
-      
-    </header>
+<div class="app">
 
-    
-    <main class="dash-main">
-      
-      <section class="hero-panel big-hero fade-in">
-        <div class="hero-content">
-          <h1>Grow Your Productivity 🌸</h1>
-          <p>Turn your tasks into a blooming garden.</p>
-          <a href="features.html" class="btn">Explore Features</a>
-        </div>
-      </section>
+<header class="header">
+  <h1>❄️ FrostFlow</h1>
+  <p>Plan calmly. Execute clearly.</p>
+</header>
 
-     
-      <section class="add-task-panel slide-up">
-        <input type="text" id="taskInput" placeholder="Sow a new seed (e.g., Water the plants)" aria-label="New Task Input">
-        <button id="addTask" class="btn">Sow Seed 🌿</button>
-      </section>
+<section class="add-panel">
+  <input id="taskInput" placeholder="Add a task">
+  <select id="goalSelect">
+    <option value="daily">Daily Goal</option>
+    <option value="long">Long-Term Goal</option>
+  </select>
+  <button id="addTask">Add</button>
+</section>
 
-      
-      <section class="task-list grid" id="taskList">
-        <div class="card task-card">✅ Clear inbox</div>
-        <div class="card task-card">💻 Review code commit</div>
-        <div class="card task-card">📧 Send weekly update</div>
-      </section>
-
-      
-      <section class="journal-card slide-up">
-        <div>
-          <h2>Growth Journal</h2>
-          <p>Take 5 minutes to reflect on what bloomed today. Consistency in reflection is key to long-term growth!</p>
-          <a href="#" class="btn btn-small">Start Reflection</a>
-        </div>
-      </section>
-
-      
-      <section class="stats-cards grid slide-up">
-        <div class="card stat-card">
-          <h3>Completed Tasks</h3>
-          <p id="completedCount">0</p>
-        </div>
-        <div class="card stat-card">
-          <h3>Pending Tasks</h3>
-          <p id="pendingCount">0</p>
-        </div>
-        <div class="card stat-card">
-          <h3>Focus Meter</h3>
-          <div class="progress-bar"><div id="focusBar"></div></div>
-        </div>
-      </section>
-    </main>
-
-    
-    <footer class="dash-footer fade-in">
-      <p>“The seeds you water today will bloom tomorrow.”</p>
-      <p>🌱 Decision Garden © 2025</p>
-    </footer>
+<section class="stats">
+  <div class="stat">🎯 Goals <span id="goalCount">0</span></div>
+  <div class="stat">🌸 Completed <span id="completedCount">0</span></div>
+  <div class="progress">
+    <div id="focusBar"></div>
   </div>
+</section>
 
-  <script src="script.js"></script>
+<section id="taskGrid" class="grid"></section>
 
-  
+<div id="modal" class="modal">
+  <div class="modal-box">
+    <h3 id="modalTitle"></h3>
+    <p id="modalStage"></p>
+    <button id="advanceBtn">Advance</button>
+    <button id="deleteBtn" class="danger">Delete</button>
+    <button onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+</div>
+<script src="script.js"></script>
 </body>
 </html>
