@@ -1,57 +1,29 @@
-const taskInput = document.getElementById('taskInput');
-const addTaskBtn = document.getElementById('addTask');
-const taskList = document.getElementById('taskList');
-const completedCountEl = document.getElementById('completedCount');
-const pendingCountEl = document.getElementById('pendingCount');
-const focusBar = document.getElementById('focusBar');
-
-let tasks = [];
-
-if (localStorage.getItem('tasks')) {
-  tasks = JSON.parse(localStorage.getItem('tasks'));
-  tasks.forEach(task => renderTask(task));
-  updateStats();
-}
-
-addTaskBtn?.addEventListener('click', () => {
-  const text = taskInput.value.trim();
-  if (text === '') return;
-  const task = { text, done: false };
-  tasks.push(task);
-  renderTask(task);
-  saveTasks();
-  taskInput.value = '';
-  updateStats();
+// script.js
+window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 50) {
+        nav.style.padding = '1rem 8%';
+        nav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+    } else {
+        nav.style.padding = '1.5rem 8%';
+        nav.style.boxShadow = 'none';
+    }
 });
 
-function renderTask(task) {
-  const div = document.createElement('div');
-  div.className = 'card task-card';
-  if (task.done) div.classList.add('done');
-  div.textContent = task.text;
+// Simple Card Reveal Animation
+const observerOptions = { threshold: 0.1 };
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
 
-  div.addEventListener('click', () => {
-    task.done = !task.done;
-    div.classList.toggle('done');
-    updateStats();
-    saveTasks();
-  });
-
-  taskList?.appendChild(div);
-}
-
-function saveTasks() {
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-}
-
-function updateStats() {
-  const completed = tasks.filter(t => t.done).length;
-  const pending = tasks.length - completed;
-  completedCountEl && (completedCountEl.textContent = completed);
-  pendingCountEl && (pendingCountEl.textContent = pending);
-
-  if (focusBar) {
-    const pct = tasks.length ? Math.round((completed / tasks.length) * 100) : 0;
-    focusBar.style.width = pct + '%';
-  }
-}
+document.querySelectorAll('.card').forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    card.style.transition = 'all 0.6s ease-out';
+    observer.observe(card);
+});
