@@ -3,40 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Decision Garden Planner</title>
+  <title>Decision Garden | Home</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="home">
+  <div class="dashboard-wrapper">
 
-<header>
-  <h1>🌿 Decision Garden Planner</h1>
-  <p class="subtitle">
-    A mindful, context-aware productivity system that helps you focus
-    on the right tasks at the right time.
-  </p>
-  <nav aria-label="Main navigation">
-    <a href="about.html">About</a>
-    <a href="features.html">Features</a>
-    <a href="projects.html">Planner</a>
-    <a href="garden.html">Garden</a>
-    <a href="growth.html">Growth</a>
-  </nav>
-</header>
+    <header class="dash-header">
+      <div class="logo">🌱 Decision Garden</div>
+      <nav class="dash-nav">
+        <ul>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="neglected.html">Neglected</a></li>
+          <li><a href="growth.html">Growth</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+    </header>
 
-<main>
-<section class="hero">
-  <h2>Productivity That Grows With You</h2>
-  <p>
-    Instead of overwhelming lists, Decision Garden Planner visualizes your work
-    as a living garden. Tasks grow, bloom, or wilt based on how you engage with them.
-  </p>
-  <a class="btn" href="projects.html">Start Planning 🌱</a>
-</section>
-</main>
+    <main class="dash-main">
 
-<footer>
-  <p>© 2026 Decision Garden Planner</p>
-</footer>
+      <section class="hero-panel big-hero fade-in">
+        <div class="hero-content">
+          <h1>Grow Your Productivity 🌸</h1>
+          <p>Turn your daily tasks into a mindful, blooming garden.</p>
+          <a href="features.html" class="btn">Explore Features</a>
+        </div>
+      </section>
 
+      <section class="add-task-panel slide-up">
+        <input type="text" id="taskInput" placeholder="Sow a new seed">
+        <button id="addTask" class="btn">Sow Seed 🌿</button>
+      </section>
+
+      <section class="task-list grid" id="taskList" role="list"></section>
+
+      <section class="journal-card slide-up">
+        <div>
+          <h2>Growth Journal</h2>
+          <p>Reflect briefly on what bloomed today and nurture consistency.</p>
+          <a href="#" class="btn btn-small">Start Reflection</a>
+        </div>
+      </section>
+
+      <section class="stats-cards grid slide-up">
+        <div class="card stat-card">
+          <h3>Completed Tasks</h3>
+          <p id="completedCount">0</p>
+        </div>
+        <div class="card stat-card">
+          <h3>Pending Tasks</h3>
+          <p id="pendingCount">0</p>
+        </div>
+        <div class="card stat-card">
+          <h3>Focus Meter</h3>
+          <div class="progress-bar"><div id="focusBar"></div></div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="dash-footer fade-in">
+      <p>“The seeds you water today will bloom tomorrow.”</p>
+      <p>🌱 Decision Garden © 2025</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
