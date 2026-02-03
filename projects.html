@@ -3,43 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Planner</title>
+  <title>Decision Garden | Projects</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="projects">
+  <div class="dashboard-wrapper">
 
-<header>
-  <h1>🧠 Daily Planner</h1>
-  <a href="index.html">← Home</a>
-</header>
+    <header class="dash-header">
+      <div class="logo">🌱 Decision Garden</div>
+      <nav class="dash-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="projects.html" class="active">Projects</a></li>
+          <li><a href="neglected.html">Neglected</a></li>
+          <li><a href="growth.html">Growth</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+    </header>
 
-<main>
-<section class="card">
-  <label for="taskInput">Task name</label>
-  <input id="taskInput" placeholder="e.g. Finish report">
+    <main class="dash-main">
+      <section class="hero-panel small-hero fade-in">
+        <div class="hero-content">
+          <h1>Projects 🌲</h1>
+          <p>Long-term goals grow here.</p>
+        </div>
+      </section>
 
-  <label for="mood">Current mood</label>
-  <select id="mood">
-    <option value="focused">Focused</option>
-    <option value="calm">Calm</option>
-    <option value="tired">Tired</option>
-  </select>
+      <section class="task-list grid slide-up">
+        <div class="card task-card">📊 Design quarterly report</div>
+        <div class="card task-card">👥 Team roadmap planning</div>
+        <div class="card task-card">🛠 Build new feature</div>
+        <div class="card task-card">🔍 Research new tech</div>
+        <div class="card task-card">📑 Write documentation</div>
+      </section>
+    </main>
 
-  <label for="energy">Energy level</label>
-  <select id="energy">
-    <option value="low">Low</option>
-    <option value="medium">Medium</option>
-    <option value="high">High</option>
-  </select>
+    <footer class="dash-footer fade-in">
+      <p>“Big trees grow from tiny seeds of effort.”</p>
+      <p>🌱 Decision Garden © 2025</p>
+    </footer>
+  </div>
 
-  <button onclick="addTask()">Plant Task 🌱</button>
-
-  <p id="recommendation" aria-live="polite"></p>
-
-  <ul id="taskList" class="draggable-list" aria-label="Task list"></ul>
-</section>
-</main>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
