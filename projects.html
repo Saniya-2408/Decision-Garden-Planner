@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Planner</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <header>
   <h1>🧠 Daily Planner</h1>
   <a href="index.html">← Home</a>
@@ -13,21 +14,24 @@
 
 <section class="card">
   <input id="taskInput" placeholder="Task name">
-  
-  <select id="energy">
-    <option>Low Energy</option>
-    <option>Medium Energy</option>
-    <option>High Energy</option>
+
+  <select id="mood">
+    <option value="focused">Focused</option>
+    <option value="tired">Tired</option>
+    <option value="calm">Calm</option>
   </select>
 
-  <select id="duration">
-    <option>15 min</option>
-    <option>30 min</option>
-    <option>60 min</option>
+  <select id="energy">
+    <option value="low">Low Energy</option>
+    <option value="medium">Medium Energy</option>
+    <option value="high">High Energy</option>
   </select>
 
   <button onclick="addTask()">Plant Task 🌱</button>
-  <ul id="taskList"></ul>
+
+  <p id="recommendation"></p>
+
+  <ul id="taskList" class="draggable-list"></ul>
 </section>
 
 <script src="script.js"></script>
