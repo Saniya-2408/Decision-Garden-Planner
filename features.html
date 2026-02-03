@@ -3,49 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Features</title>
+  <title>Decision Garden | Features</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="features">
+  <div class="dashboard-wrapper">
 
-<header>
-  <h1>🌼 Key Features</h1>
-  <a href="index.html">← Home</a>
-</header>
+    <header class="dash-header">
+      <div class="logo">🌱 Decision Garden</div>
+      <nav class="dash-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="features.html" class="active">Features</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="neglected.html">Neglected</a></li>
+          <li><a href="growth.html">Growth</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+    </header>
 
-<main>
-<section class="grid">
-  <div class="card">
-    <h3>🧠 Mood Awareness</h3>
-    <p>Tasks adapt based on how focused, calm, or tired you feel.</p>
+    <main class="dash-main">
+      <section class="hero-panel small-hero fade-in">
+        <div class="hero-content">
+          <h1>Features 🌳</h1>
+          <p>Thoughtful tools designed for sustainable focus.</p>
+        </div>
+      </section>
+
+      <section class="features-grid grid slide-up">
+        <div class="card feature-card">🌟 Smart Filtering</div>
+        <div class="card feature-card">📈 Visual Growth</div>
+        <div class="card feature-card">💡 Motivation Boost</div>
+        <div class="card feature-card">🗓 Daily Planning Beds</div>
+        <div class="card feature-card">🔔 Gentle Reminders</div>
+        <div class="card feature-card">🎯 Goal Tracking</div>
+        <div class="card feature-card">💬 Reflection Prompts</div>
+        <div class="card feature-card">♿ Accessibility First</div>
+      </section>
+    </main>
+
+    <footer class="dash-footer fade-in">
+      <p>“Every small effort adds a petal to your bloom.”</p>
+      <p>🌱 Decision Garden © 2025</p>
+    </footer>
   </div>
 
-  <div class="card">
-    <h3>⚡ Energy-Based Planning</h3>
-    <p>Match tasks to your current energy instead of forcing productivity.</p>
-  </div>
-
-  <div class="card">
-    <h3>🖱 Drag & Drop Prioritization</h3>
-    <p>Reorder tasks naturally using intuitive interactions.</p>
-  </div>
-
-  <div class="card">
-    <h3>🌸 Visual Growth</h3>
-    <p>Completed tasks bloom while neglected ones fade.</p>
-  </div>
-
-  <div class="card">
-    <h3>📊 Growth Insights</h3>
-    <p>Visual feedback shows long-term consistency.</p>
-  </div>
-
-  <div class="card">
-    <h3>♿ Accessible by Design</h3>
-    <p>Keyboard-friendly, screen-reader aware, and motion-sensitive.</p>
-  </div>
-</section>
-</main>
-
+  <script src="script.js"></script>
 </body>
 </html>
