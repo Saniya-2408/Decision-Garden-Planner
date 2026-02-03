@@ -1,29 +1,54 @@
-// script.js
-window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    if (window.scrollY > 50) {
-        nav.style.padding = '1rem 8%';
-        nav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
-    } else {
-        nav.style.padding = '1.5rem 8%';
-        nav.style.boxShadow = 'none';
-    }
-});
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-// Simple Card Reveal Animation
-const observerOptions = { threshold: 0.1 };
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
+function addTask() {
+  const name = taskInput.value;
+  const energy = document.getElementById("energy").value;
+  const duration = document.getElementById("duration").value;
 
-document.querySelectorAll('.card').forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(30px)';
-    card.style.transition = 'all 0.6s ease-out';
-    observer.observe(card);
-});
+  if (!name) return;
+
+  tasks.push({
+    name,
+    energy,
+    duration,
+    completed: false,
+    created: Date.now()
+  });
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  taskInput.value = "";
+  renderTasks();
+}
+
+function renderTasks() {
+  if (!taskList) return;
+  taskList.innerHTML = "";
+  tasks.forEach((task, i) => {
+    const li = document.createElement("li");
+    li.innerHTML = `${task.completed ? "🌸" : "🌱"} ${task.name}
+      <button onclick="completeTask(${i})">✓</button>`;
+    taskList.appendChild(li);
+  });
+}
+
+function completeTask(i) {
+  tasks[i].completed = true;
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  renderTasks();
+}
+
+function renderGarden() {
+  const garden = document.getElementById("garden");
+  if (!garden) return;
+
+  tasks.forEach(task => {
+    const div = document.createElement("div");
+    div.className = "plant " + (task.completed ? "bloom" : "grow");
+    div.textContent = task.completed ? "🌸 " : "🌱 ";
+    div.textContent += task.name;
+    garden.appendChild(div);
+  });
+}
+
+renderTasks();
+renderGarden();
