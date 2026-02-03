@@ -1,7 +1,7 @@
 body {
-  font-family: Inter, system-ui, sans-serif;
   margin: 0;
-  background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+  font-family: system-ui, sans-serif;
+  background: linear-gradient(#e8f5e9, #f1f8e9);
   color: #1b5e20;
 }
 
@@ -11,10 +11,10 @@ header {
 }
 
 nav a {
-  margin: 0 12px;
-  font-weight: 600;
-  text-decoration: none;
+  margin: 0 10px;
+  font-weight: bold;
   color: #2e7d32;
+  text-decoration: none;
 }
 
 .hero {
@@ -32,16 +32,16 @@ nav a {
 
 .card {
   background: white;
-  margin: 20px auto;
   padding: 20px;
+  margin: 20px auto;
   max-width: 500px;
   border-radius: 14px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
   gap: 20px;
   padding: 20px;
 }
@@ -49,17 +49,39 @@ nav a {
 .garden {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 15px;
   padding: 30px;
+  justify-content: center;
 }
 
 .plant {
-  padding: 15px;
-  border-radius: 12px;
-  font-weight: 600;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: bold;
 }
 
 .bloom { background: #c8e6c9; }
 .grow { background: #fff9c4; }
 .wilt { background: #ffcdd2; }
+
+.draggable-list li {
+  padding: 10px;
+  margin: 6px 0;
+  background: #e8f5e9;
+  border-radius: 8px;
+  cursor: grab;
+}
+
+.chart {
+  height: 150px;
+  background: #e0f2f1;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#bar {
+  height: 100%;
+  width: 0%;
+  background: #43a047;
+  transition: width 0.6s;
+}
