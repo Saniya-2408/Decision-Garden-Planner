@@ -15,25 +15,18 @@ taskInput?.addEventListener('keydown', e => {
 function addTask() {
   const text = taskInput.value.trim();
   if (!text) return;
-
-  const task = {
-    id: Date.now(),
-    text,
-    done: false
-  };
-
-  tasks.push(task);
+  tasks.push({ id: Date.now(), text, done: false });
   save();
-  renderAll();
+  render();
   taskInput.value = '';
 }
 
 function toggleTask(id) {
-  const task = tasks.find(t => t.id === id);
-  if (!task) return;
-  task.done = !task.done;
+  const t = tasks.find(x => x.id === id);
+  if (!t) return;
+  t.done = !t.done;
   save();
-  renderAll();
+  render();
 }
 
 function deleteTask(id, el) {
@@ -41,11 +34,11 @@ function deleteTask(id, el) {
   setTimeout(() => {
     tasks = tasks.filter(t => t.id !== id);
     save();
-    renderAll();
+    render();
   }, 300);
 }
 
-function renderAll() {
+function render() {
   renderTasks();
   updateStats();
   renderNeglected();
@@ -54,83 +47,46 @@ function renderAll() {
 function renderTasks() {
   if (!taskList) return;
   taskList.innerHTML = '';
-
-  tasks.forEach((task, index) => {
+  tasks.forEach((task, i) => {
     const card = document.createElement('div');
-    card.className = 'card task-card slide-up';
-    if (task.done) card.classList.add('done');
-
+    card.className = 'card task-card slide-up' + (task.done ? ' done' : '');
     card.setAttribute('tabindex', '0');
-    card.setAttribute('role', 'button');
-
-    card.innerHTML = `
-      <span>${task.text}</span>
-      <button class="delete-btn" aria-label="Delete task">✖</button>
-    `;
-
-    card.addEventListener('click', e => {
-      if (e.target.classList.contains('delete-btn')) return;
+    card.innerHTML = `<span>${task.text}</span><button class="delete-btn">✖</button>`;
+    card.onclick = e => {
+      if (e.target.tagName === 'BUTTON') return;
       toggleTask(task.id);
-    });
-
-    card.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') toggleTask(task.id);
-    });
-
-    card.querySelector('.delete-btn').addEventListener('click', e => {
+    };
+    card.onkeydown = e => {
+      if (e.key === 'Enter') toggleTask(task.id);
+    };
+    card.querySelector('.delete-btn').onclick = e => {
       e.stopPropagation();
       deleteTask(task.id, card);
-    });
-
+    };
     card.draggable = true;
-    card.addEventListener('dragstart', e => {
-      e.dataTransfer.setData('text/plain', index);
-      card.classList.add('dragging');
-    });
-
-    card.addEventListener('dragend', () => {
-      card.classList.remove('dragging');
-    });
-
-    taskList.appendChild(card);
-  });
-
-  enableDrag();
-}
-
-function enableDrag() {
-  const cards = [...document.querySelectorAll('.task-card')];
-
-  cards.forEach(card => {
-    card.addEventListener('dragover', e => e.preventDefault());
-    card.addEventListener('drop', e => {
+    card.ondragstart = e => e.dataTransfer.setData('i', i);
+    card.ondrop = e => {
       e.preventDefault();
-      const from = e.dataTransfer.getData('text/plain');
-      const to = cards.indexOf(card);
-      tasks.splice(to, 0, tasks.splice(from, 1)[0]);
+      const from = e.dataTransfer.getData('i');
+      tasks.splice(i, 0, tasks.splice(from, 1)[0]);
       save();
-      renderAll();
-    });
+      render();
+    };
+    card.ondragover = e => e.preventDefault();
+    taskList.appendChild(card);
   });
 }
 
 function updateStats() {
-  const completed = tasks.filter(t => t.done).length;
-  const pending = tasks.length - completed;
-
-  completedCountEl && (completedCountEl.textContent = completed);
-  pendingCountEl && (pendingCountEl.textContent = pending);
-
-  if (focusBar) {
-    const pct = tasks.length ? Math.round((completed / tasks.length) * 100) : 0;
-    focusBar.style.width = pct + '%';
-  }
+  const done = tasks.filter(t => t.done).length;
+  completedCountEl && (completedCountEl.textContent = done);
+  pendingCountEl && (pendingCountEl.textContent = tasks.length - done);
+  if (focusBar) focusBar.style.width = tasks.length ? (done / tasks.length) * 100 + '%' : '0%';
 }
 
 function renderNeglected() {
   const container = document.querySelector('.neglected .task-list');
   if (!container) return;
-
   container.innerHTML = '';
   tasks.filter(t => !t.done).forEach(t => {
     const div = document.createElement('div');
@@ -144,4 +100,4 @@ function save() {
   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-renderAll();
+render();
