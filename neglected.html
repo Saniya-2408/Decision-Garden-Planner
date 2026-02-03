@@ -3,23 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Neglected Tasks</title>
+  <title>Decision Garden | Neglected</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="neglected">
+  <div class="dashboard-wrapper">
 
-<header>
-  <h1>🍂 Needs Attention</h1>
-  <a href="index.html">← Home</a>
-</header>
+    <header class="dash-header">
+      <div class="logo">🌱 Decision Garden</div>
+      <nav class="dash-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="neglected.html" class="active">Neglected</a></li>
+          <li><a href="growth.html">Growth</a></li>
+        </ul>
+      </nav>
+    </header>
 
-<main>
-<section class="card">
-  <p>These tasks have not yet been completed.</p>
-  <ul id="neglectedList"></ul>
-</section>
-</main>
+    <main class="dash-main">
+      <section class="hero-panel small-hero fade-in">
+        <div class="hero-content">
+          <h1>Neglected 🍂</h1>
+          <p>Revive what needs care.</p>
+        </div>
+      </section>
 
-<script src="script.js"></script>
+      <section class="task-list grid slide-up"></section>
+    </main>
+
+    <footer class="dash-footer fade-in">
+      <p>“Even wilted leaves can grow again.”</p>
+      <p>🌱 Decision Garden © 2025</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
