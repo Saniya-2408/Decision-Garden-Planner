@@ -1,94 +1,65 @@
-:root {
-    --sage: #8ba888;
-    --forest: #2d4739;
-    --earth: #f4f1ea;
-    --bloom: #e5989b;
-    --neglect-gray: #a8a29e;
-    --text: #1c1917;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
 body {
-    background-color: var(--earth);
-    color: var(--text);
-    font-family: 'Quicksand', sans-serif; /* A soft, rounded font */
-    overflow-x: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: linear-gradient(#e8f5e9, #f1f8e9);
+  color: #2e7d32;
 }
 
-/* Navigation */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 5%;
-    background: rgba(244, 241, 234, 0.8);
-    backdrop-filter: blur(10px);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+header {
+  text-align: center;
+  padding: 20px;
 }
 
-.logo { font-size: 1.5rem; font-weight: 700; color: var(--forest); }
+nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #388e3c;
+  font-weight: bold;
+}
 
-.nav-links { display: flex; list-style: none; gap: 2rem; }
-
-.nav-links a { text-decoration: none; color: var(--forest); font-weight: 500; }
-
-/* Hero Section */
 .hero {
-    text-align: center;
-    padding: 100px 10%;
-    background: linear-gradient(to bottom, #d9e4dd, var(--earth));
+  text-align: center;
+  padding: 40px;
 }
 
-.hero h1 { font-size: 3.5rem; color: var(--forest); margin-bottom: 1rem; }
-
-/* Garden Grid (Task Area) */
-.garden-plot {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 30px;
-    padding: 40px 0;
+.btn {
+  background: #66bb6a;
+  padding: 12px 20px;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
 }
 
-/* Task Seeds/Plants */
-.seed-card {
-    background: white;
-    border-radius: 50% 50% 20% 20%;
-    padding: 20px;
-    text-align: center;
-    border: 2px solid var(--sage);
-    transition: 0.3s;
-    cursor: pointer;
+.card {
+  background: white;
+  margin: 20px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-.seed-card:hover { transform: scale(1.05); }
-
-.status-seed { border-bottom: 8px solid #d4a373; } /* Brown for earth */
-.status-growth { border-bottom: 8px solid var(--sage); }
-.status-bloom { border-bottom: 8px solid var(--bloom); }
-
-/* Forms */
-.input-group {
-    max-width: 500px;
-    margin: 20px auto;
-    display: flex;
-    gap: 10px;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }
 
-input {
-    flex: 1;
-    padding: 12px;
-    border: 1px solid var(--sage);
-    border-radius: 25px;
+.garden {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px;
 }
 
-.btn-plant {
-    padding: 12px 25px;
-    background: var(--forest);
-    color: white;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
+.plant {
+  font-size: 1.2em;
+  padding: 15px;
+  border-radius: 10px;
 }
+
+.bloom { background: #c8e6c9; }
+.grow { background: #fff9c4; }
+.wilt { background: #ef9a9a; }
