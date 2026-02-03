@@ -3,32 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>About</title>
+  <title>Decision Garden | About</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="about">
+  <div class="dashboard-wrapper">
 
-<header>
-  <h1>🌱 About the Project</h1>
-  <a href="index.html">← Home</a>
-</header>
+    <header class="dash-header">
+      <div class="logo">🌱 Decision Garden</div>
+      <nav class="dash-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="neglected.html">Neglected</a></li>
+          <li><a href="growth.html">Growth</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+        </ul>
+      </nav>
+    </header>
 
-<main>
-<section class="card">
-  <p>
-    Decision Garden Planner was created to solve a common productivity problem:
-    traditional task lists ignore how human energy and focus fluctuate.
-  </p>
-  <p>
-    This project introduces a visual, garden-inspired system that encourages
-    intentional task selection rather than constant urgency.
-  </p>
-  <p>
-    Built as a fully static, offline-first web application using only
-    HTML, CSS, and JavaScript.
-  </p>
-</section>
-</main>
+    <main class="dash-main">
+      <section class="hero-panel small-hero fade-in">
+        <div class="hero-content">
+          <h1>About 🌱</h1>
+          <p>The philosophy behind mindful productivity.</p>
+        </div>
+      </section>
 
+      <section class="about-content card slide-up">
+        <p>
+          Decision Garden is a productivity framework that transforms task
+          management into a visual, reflective experience.
+        </p>
+        <p>
+          Each task is treated as a living seed — blooming with action,
+          wilting when neglected, and growing with consistency.
+        </p>
+      </section>
+    </main>
+
+    <footer class="dash-footer fade-in">
+      <p>“Plant intentions. Water with action. Harvest growth.”</p>
+      <p>© Decision Garden 2025</p>
+    </footer>
+  </div>
 </body>
 </html>
