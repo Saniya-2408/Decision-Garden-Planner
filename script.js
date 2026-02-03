@@ -1,54 +1,77 @@
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
+function save() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
 function addTask() {
   const name = taskInput.value;
-  const energy = document.getElementById("energy").value;
-  const duration = document.getElementById("duration").value;
+  const mood = mood.value;
+  const energy = energy.value;
 
   if (!name) return;
 
   tasks.push({
     name,
+    mood,
     energy,
-    duration,
     completed: false,
     created: Date.now()
   });
 
-  localStorage.setItem("tasks", JSON.stringify(tasks));
   taskInput.value = "";
-  renderTasks();
+  save();
+  render();
 }
 
-function renderTasks() {
-  if (!taskList) return;
-  taskList.innerHTML = "";
-  tasks.forEach((task, i) => {
-    const li = document.createElement("li");
-    li.innerHTML = `${task.completed ? "🌸" : "🌱"} ${task.name}
-      <button onclick="completeTask(${i})">✓</button>`;
-    taskList.appendChild(li);
-  });
+function render() {
+  if (taskList) {
+    taskList.innerHTML = "";
+    tasks.forEach((t, i) => {
+      const li = document.createElement("li");
+      li.textContent = t.completed ? "🌸 " + t.name : "🌱 " + t.name;
+      li.draggable = true;
+      li.ondragstart = e => e.dataTransfer.setData("i", i);
+      li.onclick = () => {
+        t.completed = true;
+        save();
+        render();
+      };
+      taskList.appendChild(li);
+    });
+
+    recommendation.textContent =
+      "💡 Best task now: " +
+      tasks.find(t => !t.completed)?.name || "All tasks done!";
+  }
+
+  if (garden) {
+    garden.innerHTML = "";
+    tasks.forEach(t => {
+      const div = document.createElement("div");
+      div.className = "plant " + (t.completed ? "bloom" : "grow");
+      div.textContent = (t.completed ? "🌸 " : "🌱 ") + t.name;
+      garden.appendChild(div);
+    });
+  }
+
+  if (bar) {
+    const completed = tasks.filter(t => t.completed).length;
+    const percent = tasks.length ? (completed / tasks.length) * 100 : 0;
+    bar.style.width = percent + "%";
+    growthText.textContent = `${completed} of ${tasks.length} tasks completed`;
+  }
+
+  if (neglectedList) {
+    neglectedList.innerHTML = "";
+    tasks
+      .filter(t => !t.completed)
+      .forEach(t => {
+        const li = document.createElement("li");
+        li.textContent = t.name;
+        neglectedList.appendChild(li);
+      });
+  }
 }
 
-function completeTask(i) {
-  tasks[i].completed = true;
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-  renderTasks();
-}
-
-function renderGarden() {
-  const garden = document.getElementById("garden");
-  if (!garden) return;
-
-  tasks.forEach(task => {
-    const div = document.createElement("div");
-    div.className = "plant " + (task.completed ? "bloom" : "grow");
-    div.textContent = task.completed ? "🌸 " : "🌱 ";
-    div.textContent += task.name;
-    garden.appendChild(div);
-  });
-}
-
-renderTasks();
-renderGarden();
+render();
