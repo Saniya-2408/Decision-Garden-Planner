@@ -1,8 +1,8 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: Inter, system-ui, sans-serif;
   margin: 0;
-  background: linear-gradient(#e8f5e9, #f1f8e9);
-  color: #2e7d32;
+  background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+  color: #1b5e20;
 }
 
 header {
@@ -11,21 +11,21 @@ header {
 }
 
 nav a {
-  margin: 0 10px;
+  margin: 0 12px;
+  font-weight: 600;
   text-decoration: none;
-  color: #388e3c;
-  font-weight: bold;
+  color: #2e7d32;
 }
 
 .hero {
   text-align: center;
-  padding: 40px;
+  padding: 50px 20px;
 }
 
 .btn {
-  background: #66bb6a;
-  padding: 12px 20px;
+  background: #43a047;
   color: white;
+  padding: 12px 20px;
   border-radius: 8px;
   text-decoration: none;
 }
@@ -34,32 +34,32 @@ nav a {
   background: white;
   margin: 20px auto;
   padding: 20px;
-  width: 90%;
   max-width: 500px;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
   padding: 20px;
 }
 
 .garden {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
-  padding: 40px;
+  gap: 15px;
+  padding: 30px;
 }
 
 .plant {
-  font-size: 1.2em;
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 12px;
+  font-weight: 600;
 }
 
 .bloom { background: #c8e6c9; }
 .grow { background: #fff9c4; }
-.wilt { background: #ef9a9a; }
+.wilt { background: #ffcdd2; }
