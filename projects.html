@@ -6,17 +6,30 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>🧠 Daily Planner</h1>
-    <a href="index.html">← Home</a>
-  </header>
+<header>
+  <h1>🧠 Daily Planner</h1>
+  <a href="index.html">← Home</a>
+</header>
 
-  <section class="card">
-    <input type="text" id="taskInput" placeholder="Add a new task">
-    <button onclick="addTask()">Plant Task 🌱</button>
-    <ul id="taskList"></ul>
-  </section>
+<section class="card">
+  <input id="taskInput" placeholder="Task name">
+  
+  <select id="energy">
+    <option>Low Energy</option>
+    <option>Medium Energy</option>
+    <option>High Energy</option>
+  </select>
 
-  <script src="script.js"></script>
+  <select id="duration">
+    <option>15 min</option>
+    <option>30 min</option>
+    <option>60 min</option>
+  </select>
+
+  <button onclick="addTask()">Plant Task 🌱</button>
+  <ul id="taskList"></ul>
+</section>
+
+<script src="script.js"></script>
 </body>
 </html>
