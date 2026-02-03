@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Planner</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -12,27 +13,32 @@
   <a href="index.html">← Home</a>
 </header>
 
+<main>
 <section class="card">
-  <input id="taskInput" placeholder="Task name">
+  <label for="taskInput">Task name</label>
+  <input id="taskInput" placeholder="e.g. Finish report">
 
+  <label for="mood">Current mood</label>
   <select id="mood">
     <option value="focused">Focused</option>
-    <option value="tired">Tired</option>
     <option value="calm">Calm</option>
+    <option value="tired">Tired</option>
   </select>
 
+  <label for="energy">Energy level</label>
   <select id="energy">
-    <option value="low">Low Energy</option>
-    <option value="medium">Medium Energy</option>
-    <option value="high">High Energy</option>
+    <option value="low">Low</option>
+    <option value="medium">Medium</option>
+    <option value="high">High</option>
   </select>
 
   <button onclick="addTask()">Plant Task 🌱</button>
 
-  <p id="recommendation"></p>
+  <p id="recommendation" aria-live="polite"></p>
 
-  <ul id="taskList" class="draggable-list"></ul>
+  <ul id="taskList" class="draggable-list" aria-label="Task list"></ul>
 </section>
+</main>
 
 <script src="script.js"></script>
 </body>
