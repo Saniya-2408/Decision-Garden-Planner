@@ -1,47 +1,62 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
   background: linear-gradient(#e8f5e9, #f1f8e9);
   color: #1b5e20;
+  line-height: 1.6;
 }
 
 header {
   text-align: center;
-  padding: 20px;
+  padding: 24px;
+}
+
+.subtitle {
+  max-width: 600px;
+  margin: auto;
 }
 
 nav a {
   margin: 0 10px;
-  font-weight: bold;
+  font-weight: 600;
   color: #2e7d32;
   text-decoration: none;
 }
 
+nav a:focus {
+  outline: 3px solid #66bb6a;
+}
+
 .hero {
   text-align: center;
-  padding: 50px 20px;
+  padding: 60px 20px;
 }
 
 .btn {
+  display: inline-block;
   background: #43a047;
   color: white;
-  padding: 12px 20px;
-  border-radius: 8px;
+  padding: 14px 24px;
+  border-radius: 10px;
   text-decoration: none;
 }
 
 .card {
   background: white;
-  padding: 20px;
+  padding: 24px;
   margin: 20px auto;
-  max-width: 500px;
-  border-radius: 14px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  max-width: 520px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
   padding: 20px;
 }
@@ -49,33 +64,43 @@ nav a {
 .garden {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 16px;
   padding: 30px;
   justify-content: center;
 }
 
 .plant {
-  padding: 12px;
-  border-radius: 10px;
-  font-weight: bold;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  animation: pop 0.4s ease;
 }
 
 .bloom { background: #c8e6c9; }
 .grow { background: #fff9c4; }
-.wilt { background: #ffcdd2; }
+
+@keyframes pop {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
 
 .draggable-list li {
-  padding: 10px;
-  margin: 6px 0;
+  padding: 12px;
+  margin: 8px 0;
   background: #e8f5e9;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: grab;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.draggable-list li:active {
+  opacity: 0.6;
 }
 
 .chart {
-  height: 150px;
+  height: 160px;
   background: #e0f2f1;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
@@ -83,5 +108,12 @@ nav a {
   height: 100%;
   width: 0%;
   background: #43a047;
-  transition: width 0.6s;
+  transition: width 0.6s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
 }
