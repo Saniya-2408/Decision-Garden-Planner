@@ -1,19 +1,22 @@
-<div class="container">
-    <h2 class="section-title">Our Recent Work</h2>
-    <div class="grid">
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=500" class="card-img">
-            <div class="card-body">
-                <h3>The Skyway Platform</h3>
-                <p>A full-stack SaaS solution for airline logistics and scheduling.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=500" class="card-img">
-            <div class="card-body">
-                <h3>Nebula UI Kit</h3>
-                <p>A comprehensive design system used by over 5,000 developers.</p>
-            </div>
-        </div>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🧠 Daily Planner</h1>
+    <a href="index.html">← Home</a>
+  </header>
+
+  <section class="card">
+    <input type="text" id="taskInput" placeholder="Add a new task">
+    <button onclick="addTask()">Plant Task 🌱</button>
+    <ul id="taskList"></ul>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
