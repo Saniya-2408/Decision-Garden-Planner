@@ -1,71 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Your Garden | Decision Garden</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Your Garden</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="garden">
-  <div class="dashboard-wrapper">
-    
-    <header class="dash-header">
-      <div class="logo">🌱 Decision Garden</div>
-      <nav class="dash-nav">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="features.html">Features</a></li>
-          <li><a href="projects.html">Projects</a></li>
-          <li><a href="neglected.html">Neglected</a></li>
-          <li><a href="growth.html">Growth</a></li>
-          <li><a href="about.html">About</a></li>
-        </ul>
-      </nav>
-      
-    </header>
+<body>
+  <header>
+    <h1>🌳 Your Task Garden</h1>
+    <a href="index.html">← Home</a>
+  </header>
 
-    
-    <main class="dash-main">
-      <section class="hero-panel small fade-in">
-        <div>
-          <h1>Your Garden</h1>
-          <p>Choose the section to work in today.</p>
-        </div>
-        <div style="margin-left:auto"><span class="badge">Choose a bed</span></div>
-      </section>
+  <section class="garden">
+    <div class="plant bloom">🌸 Finish Assignment</div>
+    <div class="plant grow">🌱 Workout</div>
+    <div class="plant wilt">🍂 Read Book</div>
+  </section>
 
-      <section class="garden-grid fade-in-up">
-        <div class="garden-card" onclick="location.href='quick-tasks.html'">
-          <div class="emoji float">🌸</div>
-          <h3>Quick Tasks</h3>
-          <p>Small tasks you can finish fast.</p>
-        </div>
-        <div class="garden-card" onclick="location.href='projects.html'">
-          <div class="emoji float">🌳</div>
-          <h3>Projects</h3>
-          <p>Bigger tasks that take more time.</p>
-        </div>
-        <div class="garden-card" onclick="location.href='neglected.html'">
-          <div class="emoji float">🍂</div>
-          <h3>Neglected</h3>
-          <p>Tasks you’ve postponed. Time to revive them.</p>
-        </div>
-      </section>
-    </main>
-
-    
-    <footer class="dash-footer fade-in">
-      <p>🌱 Decision Garden © 2025</p>
-    </footer>
-  </div>
-
-  <script>
-    
-    const themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      themeToggle.textContent = document.body.classList.contains('dark') ? '☀ Light' : '🌙 Dark';
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
