@@ -5,16 +5,11 @@ function save() {
 }
 
 function addTask() {
-  const name = taskInput.value;
-  const mood = mood.value;
-  const energy = energy.value;
-
+  const name = taskInput.value.trim();
   if (!name) return;
 
   tasks.push({
     name,
-    mood,
-    energy,
     completed: false,
     created: Date.now()
   });
@@ -29,9 +24,7 @@ function render() {
     taskList.innerHTML = "";
     tasks.forEach((t, i) => {
       const li = document.createElement("li");
-      li.textContent = t.completed ? "🌸 " + t.name : "🌱 " + t.name;
-      li.draggable = true;
-      li.ondragstart = e => e.dataTransfer.setData("i", i);
+      li.textContent = (t.completed ? "🌸 " : "🌱 ") + t.name;
       li.onclick = () => {
         t.completed = true;
         save();
@@ -41,8 +34,9 @@ function render() {
     });
 
     recommendation.textContent =
-      "💡 Best task now: " +
-      tasks.find(t => !t.completed)?.name || "All tasks done!";
+      tasks.find(t => !t.completed)
+        ? "💡 Recommended next: " + tasks.find(t => !t.completed).name
+        : "All tasks completed 🌸";
   }
 
   if (garden) {
@@ -57,20 +51,18 @@ function render() {
 
   if (bar) {
     const completed = tasks.filter(t => t.completed).length;
-    const percent = tasks.length ? (completed / tasks.length) * 100 : 0;
+    const percent = tasks.length ? completed / tasks.length * 100 : 0;
     bar.style.width = percent + "%";
     growthText.textContent = `${completed} of ${tasks.length} tasks completed`;
   }
 
   if (neglectedList) {
     neglectedList.innerHTML = "";
-    tasks
-      .filter(t => !t.completed)
-      .forEach(t => {
-        const li = document.createElement("li");
-        li.textContent = t.name;
-        neglectedList.appendChild(li);
-      });
+    tasks.filter(t => !t.completed).forEach(t => {
+      const li = document.createElement("li");
+      li.textContent = t.name;
+      neglectedList.appendChild(li);
+    });
   }
 }
 
